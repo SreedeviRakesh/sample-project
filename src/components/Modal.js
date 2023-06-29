@@ -1,21 +1,26 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef } from 'react';
 import classes from './Modal.module.css';
+import { useDispatch } from 'react-redux';
+import { modalActions, taskActions } from '../store/index';
 
 const Modal = (props) => {
 
-    const [editedTitle, setEditedTitle] = useState(props.title)
     const editedTitleRef = useRef()
-    console.log(props.title)
 
+    const dispatch = useDispatch();
 
     const submitHandler = (event) =>{
-        event.preventDefault()        
-        // setEditedTitle(editedTitleRef.current.value)
-        // props.onNewTitle(editedTitle)
+        event.preventDefault()    
         const newTitle = editedTitleRef.current.value
         console.log(newTitle)
+        dispatch(taskActions.addTask({title: newTitle, id: props.id }))
+        dispatch(modalActions.openModal())
     }
 
+    const closeModalHandler =() => {
+        dispatch(modalActions.openModal())
+    }
+ 
 
     return (
         <React.Fragment>
@@ -28,7 +33,8 @@ const Modal = (props) => {
                     <input type='text' defaultValue={props.title} ref={editedTitleRef}/>
                 </div>
                 <footer className={classes.actions}>
-                    <button onClick={props.onClose}>Cancel</button>                    
+                    <button>Okay</button> 
+                    <button onClick={closeModalHandler}>Close</button>                    
                 </footer>
         </form>       
         </React.Fragment>
