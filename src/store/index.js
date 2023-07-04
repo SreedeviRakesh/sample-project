@@ -31,11 +31,14 @@ const taskSlice = createSlice({
 
 const modalSlice = createSlice({
     name: 'modal',
-    initialState: {showModal: false},
+    initialState: {showModal: false, editedItem: ''},
     reducers: {
-        openModal(state) {
-            state.showModal = !state.showModal;     
-            
+        openModal(state, action) {
+            state.showModal = true;     
+            state.editedItem = action.payload
+        },
+        closeModal(state) {
+            state.showModal = false
         }
     }
 

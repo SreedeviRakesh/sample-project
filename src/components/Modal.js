@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 import { modalActions, taskActions } from '../store/index';
 
 const Modal = (props) => {
+    // console.log(props.task)
 
     const editedTitleRef = useRef()
 
@@ -13,12 +14,12 @@ const Modal = (props) => {
         event.preventDefault()    
         const newTitle = editedTitleRef.current.value
         console.log(newTitle)
-        dispatch(taskActions.addTask({title: newTitle, id: props.id }))
-        dispatch(modalActions.openModal())
+        dispatch(taskActions.addTask({title: newTitle, id: props.task.id }))
+        dispatch(modalActions.closeModal())
     }
 
     const closeModalHandler =() => {
-        dispatch(modalActions.openModal())
+        dispatch(modalActions.closeModal())
     }
  
 
@@ -30,7 +31,7 @@ const Modal = (props) => {
                     <h2>Please edit your title.</h2>
                 </header>                
                 <div className={classes.content}>
-                    <input type='text' defaultValue={props.title} ref={editedTitleRef}/>
+                    <input type='text' placeholder='enter your title' defaultValue={props.task.title} ref={editedTitleRef}/>
                 </div>
                 <footer className={classes.actions}>
                     <button>Okay</button> 
