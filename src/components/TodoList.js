@@ -1,9 +1,14 @@
 import TodoItems from "./TodoItems";
+import { useSelector } from "react-redux";
 
-const TodoList = (props) => {
+const TodoList = () => {
+    
+  const todoItems = useSelector(state => state.task.todoItems) 
+  console.log(todoItems)
+
     return (
         <ul>
-            {props.todoItems.map((todoItem) => <TodoItems key={todoItem.id} id={todoItem.id} title={todoItem.title} onEdit={props.onEdit} newTitle={props.newTitle}/>)}
+            {todoItems.map((todoItem) => <TodoItems key={todoItem.id} id={todoItem.id} title={todoItem.title} />)}
         </ul>
     )
 }

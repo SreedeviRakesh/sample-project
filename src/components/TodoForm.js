@@ -1,18 +1,20 @@
 import classes from './TodoForm.module.css'
 import { useRef } from 'react';
+import {useDispatch} from 'react-redux'
+import { taskActions } from '../store/index';
 
 const TodoForm = (props) => {
 
     const inputRef = useRef();
 
+    const dispatch = useDispatch()
+
     const todoSubmitHandler =(event) => {
-        event.preventDefault();
-        const todoInput = { title: inputRef.current.value, id: Math.random().toString()};
-        console.log(todoInput)
-        if(todoInput.title.trim().length > 0){
-            props.onAdd(todoInput);
+        event.preventDefault(); 
+          
+        if(inputRef.current.value.trim().length > 0){     
+        dispatch(taskActions.addTask({title: inputRef.current.value, id: Math.random().toString() }))
         }
-        
     }
 
     return(
